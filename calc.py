@@ -112,7 +112,7 @@ elif inp == "pTr":
     h = float(input("Podaj h: "))
     print(((a + b) * h) / 2)
 
-elif inp == "oTro":
+elif inp == "oTroR":
     a = float(input("Podaj a: "))
     print(3 * a)
 
@@ -152,6 +152,20 @@ elif inp == "twP":
     b = float(input("Podaj b: "))
     print(math.sqrt(a**2 + b**2))
 
+elif inp == "oTro":
+    a = float(input("Podaj a: "))
+    b = float(input("Podaj b: "))
+    c = float(input("Podaj c: "))
+    print(a+b+c)
+    
+elif inp == "pTroR":
+    a = float(input("Podaj a: "))
+    print((a**2 * math.sqrt(3)) / 4)
+
+elif inp == "wTroR":
+    a = float(input("Podaj a: "))
+    print((a * math.sqrt(3)) / 2)
+
 elif inp == "help":
     print("""
 Dostępne komendy:
@@ -177,14 +191,17 @@ Dostępne komendy:
 - 'pRown': Pole równoległoboku
 - 'oTr': Obwód trapezu
 - 'pTr': Pole trapezu
-- 'oTro': Obwód trójkąta równobocznego
+- 'oTro': Obwód trójkąta ###
 - 'pTro': Pole trójkąta
+- 'oTroR': Obwód trójkąta równobocznego
+- 'pTroR': Pole trójkąta równobocznego ###
 - 'oKo': Obwód koła
 - 'pKo': Pole koła
 - 'oRo': Obwód rombu
 - 'pRo': Pole rombu
 - 'pRoD': Pole rombu z przekątnymi
-- 'hKw': Wysokość kwadratu z przekątną
+- 'wTroR' Wyskokość trójkąta równobocznego ###
+- 'hKw': Przekątna kwadratu
 - 'twP': Twierdzenie Pitagorasa
 """)
 else:
