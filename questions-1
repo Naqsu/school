@@ -44,3 +44,5 @@ X = "   asdasdciag znakow loalksdjnijhb aihkjsd nbikjasndkoj"
 replace = X.replace(" ", "")
 split = list(replace)
 print("Pierwszy znak:", split[0], "oraz ostatni znak:", split[len(split)-1])
+
+#################
