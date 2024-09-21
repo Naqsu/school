@@ -1,13 +1,13 @@
 #################
 
-6. #
+6.
 X = 120
 
 print((X - 5) * 2)
 
 #################
 
-7. #
+7.
 X = False
 
 if X == True:
@@ -19,7 +19,7 @@ else:
 
 #################
 
-8. #
+8.
 X = 13.5
 
 X1 = X
@@ -30,7 +30,7 @@ print("Wartość liczby zmiennoprzecinkowej:", X1)
 
 #################
 
-9. #
+9.
 degrees = float(input("Podaj stopnie celcjusza: "))
 
 print("Stopnie Celsjusza przez ciebie podane: ", degrees)
@@ -38,7 +38,7 @@ print("oraz przekonwertowane stopnie Fahrenheita: ", (degrees * 9/5) + 32)
 
 #################
 
-10. #
+10.
 X = "   asdasdciag znakow loalksdjnijhb aihkjsd nbikjasndkoj"
 
 replace = X.replace(" ", "")
