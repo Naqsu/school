@@ -175,7 +175,7 @@ def stworz_gui():
         button = tk.Button(root, text=nazwa, command=funkcja)
         button.pack(fill='x', padx=5, pady=2)
 
-    button_quit = tk.Button(root, text="Zakończ", command=root.quit)
+    button_quit = tk.Button(root, text="Zakończ", command=root.destroy)
     button_quit.pack(fill='x', padx=5, pady=2)
 
     root.mainloop()
