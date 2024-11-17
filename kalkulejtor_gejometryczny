@@ -1,192 +1,183 @@
-import time
+import tkinter as tk
+from tkinter import simpledialog, messagebox
+import math
 
-def get_positive_float(prompt):
-    while True:
-        try:
-            value = float(input(prompt))
-            if value > 0:
-                return value
-            else:
-                print("Wartość musi być dodatnia. Spróbuj ponownie.")
-        except ValueError:
-            print("To nie jest liczba. Spróbuj ponownie.")
+def pole_kwadratu():
+    bok = pobierz_wartosc("Podaj długość boku kwadratu:")
+    if bok is not None:
+        wynik = bok ** 2
+        messagebox.showinfo("Wynik", f"Pole kwadratu: {wynik}")
 
-def is_valid_triangle(a, b, c):
-    return a + b > c and a + c > b and b + c > a
+def pole_prostokata():
+    dlugosc = pobierz_wartosc("Podaj długość prostokąta:")
+    szerokosc = pobierz_wartosc("Podaj szerokość prostokąta:")
+    if dlugosc is not None and szerokosc is not None:
+        wynik = dlugosc * szerokosc
+        messagebox.showinfo("Wynik", f"Pole prostokąta: {wynik}")
 
-def get_choice():
-    while True:
-        try:
-            choice = int(input("Podaj numer opcji: "))
-            if 1 <= choice <= 20:
-                return choice
-            else:
-                print("Wybierz opcję od 1 do 20.")
-        except ValueError:
-            print("To nie jest poprawna liczba. Spróbuj ponownie.")
+def pole_rownolegloboku():
+    podstawa = pobierz_wartosc("Podaj długość podstawy równoległoboku:")
+    wysokosc = pobierz_wartosc("Podaj wysokość równoległoboku:")
+    if podstawa is not None and wysokosc is not None:
+        wynik = podstawa * wysokosc
+        messagebox.showinfo("Wynik", f"Pole równoległoboku: {wynik}")
 
-while True:
-    print("\nKalkulator geometryczny")
-    print("Wybierz opcję:")
-    print("1. Pole kwadratu")
-    print("2. Pole prostokąta")
-    print("3. Pole równoległoboku")
-    print("4. Pole trapezu")
-    print("5. Pole trójkąta")
-    print("6. Obwód kwadratu")
-    print("7. Obwód prostokąta")
-    print("8. Obwód równoległoboku")
-    print("9. Obwód trapezu")
-    print("10. Obwód trójkąta")
-    print("11. Obwód trójkąta równobocznego")
-    print("12. Objętość sześcianu")
-    print("13. Objętość prostopadłościanu")
-    print("14. Objętość graniastosłupa")
-    print("15. Objętość ostrosłupa")
-    print("16. Pole powierzchni sześcianu")
-    print("17. Pole powierzchni prostopadłościanu")
-    print("18. Pole powierzchni graniastosłupa")
-    print("19. Pole powierzchni ostrosłupa")
-    print("20. Wyjście")
+def pole_trapezu():
+    podstawa1 = pobierz_wartosc("Podaj długość pierwszej podstawy trapezu:")
+    podstawa2 = pobierz_wartosc("Podaj długość drugiej podstawy trapezu:")
+    wysokosc = pobierz_wartosc("Podaj wysokość trapezu:")
+    if podstawa1 is not None and podstawa2 is not None and wysokosc is not None:
+        wynik = ((podstawa1 + podstawa2) * wysokosc) / 2
+        messagebox.showinfo("Wynik", f"Pole trapezu: {wynik}")
 
-    choice = get_choice()
+def pole_trojkata():
+    podstawa = pobierz_wartosc("Podaj długość podstawy trójkąta:")
+    wysokosc = pobierz_wartosc("Podaj wysokość trójkąta:")
+    if podstawa is not None and wysokosc is not None:
+        wynik = (podstawa * wysokosc) / 2
+        messagebox.showinfo("Wynik", f"Pole trójkąta: {wynik}")
 
-    if choice == 1:
-        a = get_positive_float("Podaj bok kwadratu: ")
-        pole_kwadratu = a * a
-        print("Pole kwadratu wynosi:", pole_kwadratu)
+def obwod_kwadratu():
+    bok = pobierz_wartosc("Podaj długość boku kwadratu:")
+    if bok is not None:
+        wynik = 4 * bok
+        messagebox.showinfo("Wynik", f"Obwód kwadratu: {wynik}")
 
-    elif choice == 2:
-        a = get_positive_float("Podaj pierwszy bok prostokąta: ")
-        b = get_positive_float("Podaj drugi bok prostokąta: ")
-        pole_prostokata = a * b
-        print("Pole prostokąta wynosi:", pole_prostokata)
+def obwod_prostokata():
+    dlugosc = pobierz_wartosc("Podaj długość prostokąta:")
+    szerokosc = pobierz_wartosc("Podaj szerokość prostokąta:")
+    if dlugosc is not None and szerokosc is not None:
+        wynik = 2 * (dlugosc + szerokosc)
+        messagebox.showinfo("Wynik", f"Obwód prostokąta: {wynik}")
 
-    elif choice == 3:
-        a = get_positive_float("Podaj podstawę równoległoboku: ")
-        h = get_positive_float("Podaj wysokość równoległoboku: ")
-        pole_rownoleglogu = a * h
-        print("Pole równoległoboku wynosi:", pole_rownoleglogu)
+def obwod_trojkata():
+    bok1 = pobierz_wartosc("Podaj długość pierwszego boku trójkąta:")
+    bok2 = pobierz_wartosc("Podaj długość drugiego boku trójkąta:")
+    bok3 = pobierz_wartosc("Podaj długość trzeciego boku trójkąta:")
+    if bok1 is not None and bok2 is not None and bok3 is not None:
+        wynik = bok1 + bok2 + bok3
+        messagebox.showinfo("Wynik", f"Obwód trójkąta: {wynik}")
 
-    elif choice == 4:
-        a = get_positive_float("Podaj długość pierwszej podstawy trapezu: ")
-        b = get_positive_float("Podaj długość drugiej podstawy trapezu: ")
-        h = get_positive_float("Podaj wysokość trapezu: ")
-        if a <= 0 or b <= 0 or h <= 0 or a + b <= h:
-            print("Podane wartości nie tworzą prawidłowego trapezu. Spróbuj ponownie.")
-        else:
-            pole_trapezu = (a + b) * h / 2
-            print("Pole trapezu wynosi:", pole_trapezu)
+def obwod_trojkata_rownobocznego():
+    bok = pobierz_wartosc("Podaj długość boku trójkąta równobocznego:")
+    if bok is not None:
+        wynik = 3 * bok
+        messagebox.showinfo("Wynik", f"Obwód trójkąta równobocznego: {wynik}")
 
-    elif choice == 5:
-        while True:
-            a = get_positive_float("Podaj pierwszy bok trójkąta: ")
-            b = get_positive_float("Podaj drugi bok trójkąta: ")
-            c = get_positive_float("Podaj trzeci bok trójkąta: ")
-            if is_valid_triangle(a, b, c):
-                s = (a + b + c) / 2
-                pole_trojkata = (s * (s - a) * (s - b) * (s - c)) ** 0.5
-                print("Pole trójkąta wynosi:", pole_trojkata)
-                break
-            else:
-                print("Podane wartości nie tworzą prawidłowego trójkąta. Spróbuj ponownie.")
+def objetosc_szescianu():
+    bok = pobierz_wartosc("Podaj długość boku sześcianu:")
+    if bok is not None:
+        wynik = bok ** 3
+        messagebox.showinfo("Wynik", f"Objętość sześcianu: {wynik}")
 
-    elif choice == 6:
-        a = get_positive_float("Podaj bok kwadratu: ")
-        obwod_kwadratu = 4 * a
-        print("Obwód kwadratu wynosi:", obwod_kwadratu)
+def objetosc_prostopadloscianu():
+    dlugosc = pobierz_wartosc("Podaj długość prostopadłościanu:")
+    szerokosc = pobierz_wartosc("Podaj szerokość prostopadłościanu:")
+    wysokosc = pobierz_wartosc("Podaj wysokość prostopadłościanu:")
+    if dlugosc is not None and szerokosc is not None and wysokosc is not None:
+        wynik = dlugosc * szerokosc * wysokosc
+        messagebox.showinfo("Wynik", f"Objętość prostopadłościanu: {wynik}")
 
-    elif choice == 7:
-        a = get_positive_float("Podaj pierwszy bok prostokąta: ")
-        b = get_positive_float("Podaj drugi bok prostokąta: ")
-        obwod_prostokata = 2 * (a + b)
-        print("Obwód prostokąta wynosi:", obwod_prostokata)
+def pole_szescianu():
+    bok = pobierz_wartosc("Podaj długość boku sześcianu:")
+    if bok is not None:
+        wynik = 6 * (bok ** 2)
+        messagebox.showinfo("Wynik", f"Pole powierzchni sześcianu: {wynik}")
 
-    elif choice == 8:
-        a = get_positive_float("Podaj pierwszy bok równoległoboku: ")
-        b = get_positive_float("Podaj drugi bok równoległoboku: ")
-        obwod_rownoleglogu = 2 * (a + b)
-        print("Obwód równoległoboku wynosi:", obwod_rownoleglogu)
+def pole_prostopadloscianu():
+    dlugosc = pobierz_wartosc("Podaj długość prostopadłościanu:")
+    szerokosc = pobierz_wartosc("Podaj szerokość prostopadłościanu:")
+    wysokosc = pobierz_wartosc("Podaj wysokość prostopadłościanu:")
+    if dlugosc is not None and szerokosc is not None and wysokosc is not None:
+        wynik = 2 * (dlugosc * szerokosc + dlugosc * wysokosc + szerokosc * wysokosc)
+        messagebox.showinfo("Wynik", f"Pole powierzchni prostopadłościanu: {wynik}")
 
-    elif choice == 9:
-        a = get_positive_float("Podaj pierwszą podstawę trapezu: ")
-        b = get_positive_float("Podaj drugą podstawę trapezu: ")
-        c = get_positive_float("Podaj pierwszy bok trapezu: ")
-        d = get_positive_float("Podaj drugi bok trapezu: ")
-        if a + b <= c + d:
-            print("Podane wartości nie tworzą prawidłowego trapezu. Spróbuj ponownie.")
-        else:
-            obwod_trapezu = a + b + c + d
-            print("Obwód trapezu wynosi:", obwod_trapezu)
+def obwod_rownolegloboku():
+    bok1 = pobierz_wartosc("Podaj długość pierwszego boku równoległoboku:")
+    bok2 = pobierz_wartosc("Podaj długość drugiego boku równoległoboku:")
+    if bok1 is not None and bok2 is not None:
+        wynik = 2 * (bok1 + bok2)
+        messagebox.showinfo("Wynik", f"Obwód równoległoboku: {wynik}")
 
-    elif choice == 10:
-        a = get_positive_float("Podaj pierwszy bok trójkąta: ")
-        b = get_positive_float("Podaj drugi bok trójkąta: ")
-        c = get_positive_float("Podaj trzeci bok trójkąta: ")
-        if not is_valid_triangle(a, b, c):
-            print("Podane wartości nie tworzą prawidłowego trójkąta. Spróbuj ponownie.")
-        else:
-            obwod_trojkata = a + b + c
-            print("Obwód trójkąta wynosi:", obwod_trojkata)
+def obwod_trapezu():
+    bok1 = pobierz_wartosc("Podaj długość pierwszego boku trapezu:")
+    bok2 = pobierz_wartosc("Podaj długość drugiego boku trapezu:")
+    bok3 = pobierz_wartosc("Podaj długość trzeciego boku trapezu:")
+    bok4 = pobierz_wartosc("Podaj długość czwartego boku trapezu:")
+    if bok1 is not None and bok2 is not None and bok3 is not None and bok4 is not None:
+        wynik = bok1 + bok2 + bok3 + bok4
+        messagebox.showinfo("Wynik", f"Obwód trapezu: {wynik}")
 
-    elif choice == 11:
-        a = get_positive_float("Podaj bok trójkąta równobocznego: ")
-        obwod_trojkata_rownobocznego = 3 * a
-        print("Obwód trójkąta równobocznego wynosi:", obwod_trojkata_rownobocznego)
+def objetosc_graniastoslupa():
+    pole_podstawy = pobierz_wartosc("Podaj pole podstawy graniastosłupa:")
+    wysokosc = pobierz_wartosc("Podaj wysokość graniastosłupa:")
+    if pole_podstawy is not None and wysokosc is not None:
+        wynik = pole_podstawy * wysokosc
+        messagebox.showinfo("Wynik", f"Objętość graniastosłupa: {wynik}")
 
-    elif choice == 12:
-        a = get_positive_float("Podaj bok sześcianu: ")
-        objetosc_szescianu = a ** 3
-        print("Objętość sześcianu wynosi:", objetosc_szescianu)
+def objetosc_ostroslupa():
+    pole_podstawy = pobierz_wartosc("Podaj pole podstawy ostrosłupa:")
+    wysokosc = pobierz_wartosc("Podaj wysokość ostrosłupa:")
+    if pole_podstawy is not None and wysokosc is not None:
+        wynik = (pole_podstawy * wysokosc) / 3
+        messagebox.showinfo("Wynik", f"Objętość ostrosłupa: {wynik}")
 
-    elif choice == 13:
-        a = get_positive_float("Podaj pierwszy bok prostopadłościanu: ")
-        b = get_positive_float("Podaj drugi bok prostopadłościanu: ")
-        c = get_positive_float("Podaj trzeci bok prostopadłościanu: ")
-        objetosc_prostopadloscianu = a * b * c
-        print("Objętość prostopadłościanu wynosi:", objetosc_prostopadloscianu)
+def pole_powierzchni_graniastoslupa():
+    pole_podstawy = pobierz_wartosc("Podaj pole podstawy graniastosłupa:")
+    obwod_podstawy = pobierz_wartosc("Podaj obwód podstawy graniastosłupa:")
+    wysokosc = pobierz_wartosc("Podaj wysokość graniastosłupa:")
+    if pole_podstawy is not None and obwod_podstawy is not None and wysokosc is not None:
+        wynik = 2 * pole_podstawy + obwod_podstawy * wysokosc
+        messagebox.showinfo("Wynik", f"Pole powierzchni graniastosłupa: {wynik}")
 
-    elif choice == 14:
-        Pp = get_positive_float("Podaj pole podstawy graniastosłupa: ")
-        h = get_positive_float("Podaj wysokość graniastosłupa: ")
-        objetosc_graniastoslupa = Pp * h
-        print("Objętość graniastosłupa wynosi:", objetosc_graniastoslupa)
+def pole_powierzchni_ostroslupa():
+    pole_podstawy = pobierz_wartosc("Podaj pole podstawy ostrosłupa:")
+    pole_scian = pobierz_wartosc("Podaj sumę pól ścian bocznych ostrosłupa:")
+    if pole_podstawy is not None and pole_scian is not None:
+        wynik = pole_podstawy + pole_scian
+        messagebox.showinfo("Wynik", f"Pole powierzchni ostrosłupa: {wynik}")
 
-    elif choice == 15:
-        Pp = get_positive_float("Podaj pole podstawy ostrosłupa: ")
-        h = get_positive_float("Podaj wysokość ostrosłupa: ")
-        objetosc_ostroslupa = (Pp * h) / 3
-        print("Objętość ostrosłupa wynosi:", objetosc_ostroslupa)
 
-    elif choice == 16:
-        a = get_positive_float("Podaj bok sześcianu: ")
-        pole_szescianu = 6 * a ** 2
-        print("Pole powierzchni sześcianu wynosi:", pole_szescianu)
+def pobierz_wartosc(prompt):
+    wartosc = simpledialog.askfloat("Input", prompt)
+    if wartosc is None or wartosc <= 0:
+        messagebox.showerror("Błąd", "Niepoprawna wartość. Wprowadź liczbę większą od zera.")
+        return None
+    return wartosc
 
-    elif choice == 17:
-        a = get_positive_float("Podaj pierwszy bok prostopadłościanu: ")
-        b = get_positive_float("Podaj drugi bok prostopadłościanu: ")
-        c = get_positive_float("Podaj trzeci bok prostopadłościanu: ")
-        pole_prostopadloscianu = 2 * (a * b + a * c + b * c)
-        print("Pole powierzchni prostopadłościanu wynosi:", pole_prostopadloscianu)
+def stworz_gui():
+    root = tk.Tk()
+    root.title("Kalkulator Geometryczny")
 
-    elif choice == 18:
-        Pp = get_positive_float("Podaj pole podstawy graniastosłupa: ")
-        Pb = get_positive_float("Podaj pole powierzchni bocznej graniastosłupa: ")
-        pole_graniastoslupa = 2 * Pp + Pb
-        print("Pole powierzchni graniastosłupa wynosi:", pole_graniastoslupa)
+    opcje = {
+        "Pole kwadratu": pole_kwadratu,
+        "Pole prostokąta": pole_prostokata,
+        "Pole równoległoboku": pole_rownolegloboku,
+        "Pole trapezu": pole_trapezu,
+        "Pole trójkąta": pole_trojkata,
+        "Obwód kwadratu": obwod_kwadratu,
+        "Obwód prostokąta": obwod_prostokata,
+        "Obwód trójkąta": obwod_trojkata,
+        "Obwód trójkąta równobocznego": obwod_trojkata_rownobocznego,
+        "Objętość sześcianu": objetosc_szescianu,
+        "Objętość prostopadłościanu": objetosc_prostopadloscianu,
+        "Pole powierzchni sześcianu": pole_szescianu,
+        "Pole powierzchni prostopadłościanu": pole_prostopadloscianu,
+        "Obwód równoległoboku": obwod_rownolegloboku,
+        "Obwód trapezu": obwod_trapezu,
+        "Objętość graniastosłupa": objetosc_graniastoslupa,
+        "Objętość ostrosłupa": objetosc_ostroslupa,
+        "Pole powierzchni graniastosłupa": pole_powierzchni_graniastoslupa,
+        "Pole powierzchni ostrosłupa": pole_powierzchni_ostroslupa,
+    }
 
-    elif choice == 19:
-        Pp = get_positive_float("Podaj pole podstawy ostrosłupa: ")
-        Pb = get_positive_float("Podaj pole powierzchni bocznej ostrosłupa: ")
-        pole_ostroslupa = Pp + Pb
-        print("Pole powierzchni ostrosłupa wynosi:", pole_ostroslupa)
+    for nazwa, funkcja in opcje.items():
+        button = tk.Button(root, text=nazwa, command=funkcja)
+        button.pack(fill='x', padx=5, pady=2)
 
-    elif choice == 20:
-        print("Koniec programu.")
-        break
+    button_quit = tk.Button(root, text="Zakończ", command=root.quit)
+    button_quit.pack(fill='x', padx=5, pady=2)
 
-    else:
-        print("Nie ma takiej opcji!")
+    root.mainloop()
 
-    time.sleep(3)
+stworz_gui()
