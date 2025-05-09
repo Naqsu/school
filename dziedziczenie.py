@@ -1,5 +1,3 @@
-import random
-import time
 
 class Zwierze:
     def __init__(self, imie, wiek, gatunek):
