@@ -1,48 +1,59 @@
-class Cecha:
-    def informacje(self):
-        return ""
-
-    def dzwiek(self):
-        return ""
-
-class Nocny(Cecha):
-    def informacje(self):
-        return "Nocny: Tak"
-
-class Dzienny(Cecha):
-    def informacje(self):
-        return "Nocny: Nie"
-
-class Lata(Cecha):
-    def informacje(self):
-        return "Lata: Tak"
-
-class NieLata(Cecha):
-    def informacje(self):
-        return "Lata: Nie"
-
-class Jadowity(Cecha):
-    def informacje(self):
-        return "Jadowity: Tak"
-
-class NieJadowity(Cecha):
-    def informacje(self):
-        return "Jadowity: Nie"
-
 class Zwierze:
-    def __init__(self, imie, wiek, gatunek, cechy, dzwiek):
+    def __init__(self, imie, wiek, gatunek):
         self.imie = imie
         self.wiek = wiek
         self.gatunek = gatunek
-        self.cechy = cechy
-        self._dzwiek = dzwiek
-
-    def informacje(self):
-        cechy_info = ", ".join([c.informacje() for c in self.cechy])
-        return f"{self.imie}, Wiek: {self.wiek}, Gatunek: {self.gatunek}" + (", " + cechy_info if cechy_info else "")
 
     def daj_dzwiek(self):
-        return self._dzwiek
+        return "Jakiś dźwięk"
+
+    def informacje(self):
+        return f"{self.imie}, Wiek: {self.wiek}, Gatunek: {self.gatunek}"
+
+class Ssak:
+    def __init__(self, imie, wiek, gatunek, nocny):
+        self.zwierze = Zwierze(imie, wiek, gatunek)
+        self.nocny = nocny
+
+    def daj_dzwiek(self):
+        return "Ryk" if self.zwierze.gatunek == "Lew" else "Dźwięk ssaka"
+
+    def informacje(self):
+        return self.zwierze.informacje() + f", Nocny: {self.nocny}"
+
+    @property
+    def imie(self):
+        return self.zwierze.imie
+
+class Ptak:
+    def __init__(self, imie, wiek, gatunek, lata):
+        self.zwierze = Zwierze(imie, wiek, gatunek)
+        self.lata = lata
+
+    def daj_dzwiek(self):
+        return "Ćwir ćwir"
+
+    def informacje(self):
+        return self.zwierze.informacje() + f", Lata: {self.lata}"
+
+    @property
+    def imie(self):
+        return self.zwierze.imie
+
+class Gadow:
+    def __init__(self, imie, wiek, gatunek, jadowity):
+        self.zwierze = Zwierze(imie, wiek, gatunek)
+        self.jadowity = jadowity
+
+    def daj_dzwiek(self):
+        return "Syssss"
+
+    def informacje(self):
+        return self.zwierze.informacje() + f", Jadowity: {self.jadowity}"
+
+    @property
+    def imie(self):
+        return self.zwierze.imie
 
 class Zoo:
     def __init__(self):
@@ -71,14 +82,14 @@ class Zoo:
         for z in self.zwierzeta:
             print(f"{z.imie} mówi: {z.daj_dzwiek()}")
 
-def przykladowe_zwierzeta(zoo):
-    z1 = Zwierze("Leo", 5, "Lew", [Nocny()], "Ryk")
-    z2 = Zwierze("Ćwirek", 2, "Kanarek", [Lata()], "Ćwir ćwir")
-    z3 = Zwierze("Ślizgacz", 4, "Wąż", [Jadowity()], "Syssss")
-    z4 = Zwierze("Ela", 10, "Słoń", [Dzienny()], "Trąbienie")
-    z5 = Zwierze("Ping", 3, "Pingwin", [NieLata()], "Kwa")
-    z6 = Zwierze("Zębaty", 6, "Krokodyl", [NieJadowity()], "Chrrr")
-    z7 = Zwierze("Mika", 1, "Nietoperz", [Nocny(), Lata()], "Pisk")
+def zwierzeta(zoo):
+    z1 = Ssak("Leo", 5, "Lew", True)
+    z2 = Ptak("Ćwirek", 2, "Kanarek", True)
+    z3 = Gadow("Ślizgacz", 4, "Wąż", True)
+    z4 = Ssak("Ela", 10, "Słoń", False)
+    z5 = Ptak("Ping", 3, "Pingwin", False)
+    z6 = Gadow("Zębaty", 6, "Krokodyl", False)
+    z7 = Ssak("Mika", 1, "Nietoperz", True)
 
     zoo.dodaj_zwierze(z1)
     zoo.dodaj_zwierze(z2)
@@ -88,39 +99,9 @@ def przykladowe_zwierzeta(zoo):
     zoo.dodaj_zwierze(z6)
     zoo.dodaj_zwierze(z7)
 
-def dodaj_zwierze_user(zoo):
-    print("\n-- Dodaj Zwierzę --")
-    imie = input("Imię: ")
-    wiek = int(input("Wiek: "))
-    gatunek = input("Gatunek: ")
-    dzwiek = input("Dźwięk, jaki wydaje: ")
-
-    cechy = []
-
-    nocny = input("Czy zwierzę jest nocne? (t/n): ").strip().lower()
-    if nocny == "t":
-        cechy.append(Nocny())
-    else:
-        cechy.append(Dzienny())
-
-    lata = input("Czy zwierzę potrafi latać? (t/n): ").strip().lower()
-    if lata == "t":
-        cechy.append(Lata())
-    else:
-        cechy.append(NieLata())
-
-    jadowity = input("Czy zwierzę jest jadowite? (t/n): ").strip().lower()
-    if jadowity == "t":
-        cechy.append(Jadowity())
-    else:
-        cechy.append(NieJadowity())
-
-    nowe_zwierze = Zwierze(imie, wiek, gatunek, cechy, dzwiek)
-    zoo.dodaj_zwierze(nowe_zwierze)
-
 def menu():
     zoo = Zoo()
-    przykladowe_zwierzeta(zoo)
+    zwierzeta(zoo)
 
     while True:
         print("\n--- MENU ZOO ---")
@@ -134,7 +115,7 @@ def menu():
         if wybor == "1":
             zoo.pokaz_zwierzeta()
         elif wybor == "2":
-            dodaj_zwierze_user(zoo)
+            dodaj_zwierze_interaktywnie(zoo)
         elif wybor == "3":
             imie = input("Podaj imię zwierzęcia do usunięcia: ")
             zoo.usun_zwierze(imie)
@@ -145,6 +126,28 @@ def menu():
             break
         else:
             print("Nieprawidłowy wybór. Spróbuj ponownie.")
+
+def dodaj_zwierze_interaktywnie(zoo):
+    print("\n-- Dodaj Zwierzę --")
+    typ = input("Typ (ssak/ptak/gad): ").strip().lower()
+    imie = input("Imię: ")
+    wiek = int(input("Wiek: "))
+    gatunek = input("Gatunek: ")
+
+    if typ == "ssak":
+        nocny = input("Czy nocny (t/n)? ").strip().lower() == "t"
+        zwierze = Ssak(imie, wiek, gatunek, nocny)
+    elif typ == "ptak":
+        lata = input("Czy potrafi latać (t/n)? ").strip().lower() == "t"
+        zwierze = Ptak(imie, wiek, gatunek, lata)
+    elif typ == "gad":
+        jadowity = input("Czy jadowity (t/n)? ").strip().lower() == "t"
+        zwierze = Gadow(imie, wiek, gatunek, jadowity)
+    else:
+        print("Nieznany typ!")
+        return
+
+    zoo.dodaj_zwierze(zwierze)
 
 if __name__ == "__main__":
     menu()
