@@ -1,4 +1,3 @@
-
 class Zwierze:
     def __init__(self, imie, wiek, gatunek):
         self.imie = imie
@@ -11,38 +10,50 @@ class Zwierze:
     def informacje(self):
         return f"{self.imie}, Wiek: {self.wiek}, Gatunek: {self.gatunek}"
 
-class Ssak(Zwierze):
+class Ssak:
     def __init__(self, imie, wiek, gatunek, nocny):
-        super().__init__(imie, wiek, gatunek)
+        self.zwierze = Zwierze(imie, wiek, gatunek)
         self.nocny = nocny
 
     def daj_dzwiek(self):
-        return "Ryk" if self.gatunek == "Lew" else "Dźwięk ssaka"
+        return "Ryk" if self.zwierze.gatunek == "Lew" else "Dźwięk ssaka"
 
     def informacje(self):
-        return super().informacje() + f", Nocny: {self.nocny}"
+        return self.zwierze.informacje() + f", Nocny: {self.nocny}"
 
-class Ptak(Zwierze):
+    @property
+    def imie(self):
+        return self.zwierze.imie
+
+class Ptak:
     def __init__(self, imie, wiek, gatunek, lata):
-        super().__init__(imie, wiek, gatunek)
+        self.zwierze = Zwierze(imie, wiek, gatunek)
         self.lata = lata
 
     def daj_dzwiek(self):
         return "Ćwir ćwir"
 
     def informacje(self):
-        return super().informacje() + f", Lata: {self.lata}"
+        return self.zwierze.informacje() + f", Lata: {self.lata}"
 
-class Gadow(Zwierze):
+    @property
+    def imie(self):
+        return self.zwierze.imie
+
+class Gadow:
     def __init__(self, imie, wiek, gatunek, jadowity):
-        super().__init__(imie, wiek, gatunek)
+        self.zwierze = Zwierze(imie, wiek, gatunek)
         self.jadowity = jadowity
 
     def daj_dzwiek(self):
         return "Syssss"
 
     def informacje(self):
-        return super().informacje() + f", Jadowity: {self.jadowity}"
+        return self.zwierze.informacje() + f", Jadowity: {self.jadowity}"
+
+    @property
+    def imie(self):
+        return self.zwierze.imie
 
 class Zoo:
     def __init__(self):
@@ -87,7 +98,6 @@ def zwierzeta(zoo):
     zoo.dodaj_zwierze(z5)
     zoo.dodaj_zwierze(z6)
     zoo.dodaj_zwierze(z7)
-
 
 def menu():
     zoo = Zoo()
